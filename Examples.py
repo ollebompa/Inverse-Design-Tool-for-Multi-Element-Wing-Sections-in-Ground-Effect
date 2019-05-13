@@ -10,8 +10,8 @@ import numpy as np
 from Aerofoil_Generation import NACA4series
 from Analysis_Method import LOAD, PANEL, ASOLVE
 from Post import CP, PLOT_CP
-from Post import FIELD_U_V_CP, STREAMLINES, POTENTIAL
-from Post import FIELD_PLOT_CP_U_V,FIELD_PLOT_STREAMLINES,FIELD_PLOT_POTENTIAL
+from Post import FIELD_U_V_CP, STREAMLINES
+from Post import FIELD_PLOT_CP_U_V,FIELD_PLOT_STREAMLINES
 
 
 thickness=0.12
@@ -73,83 +73,3 @@ def Plot_Field(xlimit,zlimit,NX,NZ,filepath,filename,M,alpha,GE,h):
     XZPSI=STREAMLINES(xlimit,zlimit,NX,NZ,GAMMA,XP,ZP,alpha,PSIFIELD,h)
     #plot 
     FIELD_PLOT_STREAMLINES(XZPSI, XP, ZP,zlimit, h=h,mirror=False,savename='test',save=True)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def streamline_plot():
-      ALPHA=0
-      h=0.1
-#      XP,ZP=NACA4series(0.12,M=100)
-      GAMMA,PSI,CL=ASOLVE(xnew4,znew4,ALPHA,UINF=1,GE=True,h=h)
-#      return(PSI)
-#
-##      GAMMA,PSI,CL=ASOLVE(XP,ZP,ALPHA,UINF=1,GE=True,h=h)
-      
-      add=np.array((0.1,0.3,0.5,1,1.1,1.2,1.3))
-      print(np.shape(add))
-      print(np.shape(PSI))
-      PSI=np.concatenate((np.ravel(PSI),add)) 
-      (XZPSI)=STREAMLINES(xlimit,zlimit,NX,NZ,GAMMA,xnew4,znew4,ALPHA,PSI,h)
-#      return(XZPSI)
-      fig,ax=FIELD_PLOT_PSI(XZPSI,xnew4,znew4, h=h,mirror=False)
-#      FIELD__PLOT_PSI(xzpsi,xp, zp, h=h)
-      fig.tight_layout()
-      plt.savefig('STR_fieldstreamlines.png',dpi=600,bbox_inches='tight')
-      return(XZPSI)
-
-
-def potential_plot():
-      ALPHA=0
-      h=0.1
-#      XP,ZP=NACA4series(0.12,M=100)
-#      GAMMA,PSI,CL=ASOLVE(xpi,zpi,ALPHA,UINF=1,GE=True,h=h)
-      GAMMA,PSI,CL=ASOLVE(xnew4,znew4,ALPHA,UINF=1,GE=True,h=h)
-      
-      (PHIA, XG, ZG)=POTENTIAL(xlimit,zlimit,NX,NZ,GAMMA,xnew4,znew4,ALPHA,h)
-      
-      fig,ax=FIELD_PLOT_PHI(PHIA, XG, ZG,xnew4,znew4, h=h,mirror=False)
-#      FIELD__PLOT_PSI(xzpsi,xp, zp, h=h)
-      fig.tight_layout()
-      plt.savefig('STR_fieldpotential.png',dpi=600,bbox_inches='tight')
-
-
-def CP_V_plot():
-      ALPHA=0
-      h=0.1
-#      XP,ZP=NACA4series(0.12,M=100)
-      GAMMA,PSI,CL=ASOLVE(xnew4,znew4,ALPHA,UINF=1,GE=True,h=h)
-#      GAMMA,PSI,CL=ASOLVE(XP,ZP,ALPHA,UINF=1,GE=False,h=h)
-      (U, W, VM, CPF, XG, ZG)=FIELD_U_V_CP(xlimit,zlimit,NX,NZ,GAMMA,xnew4,znew4,ALPHA,h)
-      fig,ax=FIELD_PLOTS(U, W, VM, CPF, XG, ZG, xnew4,znew4, h=h,mirror=False)
-#      FIELD_PLOTS(u, w, vm, cpf, xg, zg, xp, zp, h=h)
-#      return(U,W,VM,CPF,XG,ZG)
-      fig.tight_layout()
-      plt.savefig('STR_feildcp.png',dpi=600,bbox_inches='tight')
-      
-      
-
-
-      
